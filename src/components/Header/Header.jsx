@@ -2,12 +2,8 @@ import React from 'react'
 import navLogo from '../../assets/nav_logo.png'
 
 export const Header = () => {
-  return (
-    <div className="navbar bg-base-100">
-    <div className="flex-1 gap-10">
-        <img className='max-w-[200px]' src={navLogo} alt="" />
-        <div className='hidden md:block w-full'>
-          <div className="flex items-center bg-white rounded-lg shadow-md w-full px-2">
+  const navSearch = <>
+  <div className="flex items-center bg-white rounded-lg shadow-md w-full px-2">
             <input
                 type="text"
                 className="pl-10 pr-4 py-2 w-full bg-white rounded-lg focus:outline-none"
@@ -33,9 +29,15 @@ export const Header = () => {
                 d="M15 11a6 6 0 11-12 0 6 6 0 0112 0z"
               />
             </svg>
-          </div>
+          </div></>
+  return (
+    <>
+    <div className="navbar bg-base-100">
+      <div className="flex-1 gap-10">
+        <img className='max-w-[200px]' src={navLogo} alt="" />
+        <div className='hidden md:block w-full'>
+          {navSearch}
         </div>
-
       </div>
         <div className="flex-none ml-10">
           <div className="dropdown dropdown-end">
@@ -74,6 +76,9 @@ export const Header = () => {
           </div>
         </div>
     </div>
-
+    <div className='md:hidden w-11/12 mx-auto'>
+      {navSearch}
+    </div>
+    </>
   )
 }
