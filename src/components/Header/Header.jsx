@@ -57,6 +57,7 @@ export const Header = () => {
               </div>
             </div>
           </div>
+          {/* TODO: toggle between profile pic and login according to login status. */}
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
