@@ -22,7 +22,7 @@ export const TopBanner = () => {
         modules={[Pagination]}
         className="mySwiper"
       >
-        <SwiperSlide><img className='w-full max-h-min' src={topBannerImg1} alt="" /></SwiperSlide>
+        <SwiperSlide><img className='w-full max-h-[400px]' src={topBannerImg1} alt="" /></SwiperSlide>
         <SwiperSlide><img className='w-full h-full' src={topBannerImg2} alt="" /></SwiperSlide>
       </Swiper>
     </>

@@ -22,15 +22,57 @@ export const SpecialOffer = () => {
         effect={'cards'}
         grabCursor={true}
         modules={[EffectCards]}
-        className="mySwiper w-[300px]"
+        className="mySwiper w-[210px]"
       >
-        <SwiperSlide><img className='max-w-xs' src={special1} alt="" /></SwiperSlide>
-        <SwiperSlide><img className='max-w-xs' src={special2} alt="" /></SwiperSlide>
-        <SwiperSlide><img className='max-w-xs' src={special3} alt="" /></SwiperSlide>
-        <SwiperSlide><img className='max-w-xs' src={special4} alt="" /></SwiperSlide>
-        <SwiperSlide><img className='max-w-xs' src={special5} alt="" /></SwiperSlide>
-        <SwiperSlide><img className='max-w-xs' src={special6} alt="" /></SwiperSlide>
-        <SwiperSlide><img className='max-w-xs' src={special7} alt="" /></SwiperSlide>
+        <SwiperSlide>
+          <div className='bg-white p-2 border-2 border-green-400'>
+              <img className='max-w-[190px]' src={special1} alt="" />
+              <p className='mt-2 ml-2'>Lorem, ipsum dolor sit</p>
+              <p className='mt-2 ml-2'>price</p>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className='bg-white p-2 border-2 border-green-400'>
+              <img className='max-w-[190px]' src={special2} alt="" />
+              <p className='mt-2 ml-2'>Lorem, ipsum dolor sit</p>
+              <p className='mt-2 ml-2'>price</p>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className='bg-white p-2 border-2 border-green-400'>
+              <img className='max-w-[190px]' src={special3} alt="" />
+              <p className='mt-2 ml-2'>Lorem, ipsum dolor sit</p>
+              <p className='mt-2 ml-2'>price</p>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className='bg-white p-2 border-2 border-green-400'>
+              <img className='max-w-[190px]' src={special4} alt="" />
+              <p className='mt-2 ml-2'>Lorem, ipsum dolor sit</p>
+              <p className='mt-2 ml-2'>price</p>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className='bg-white p-2 border-2 border-green-400'>
+              <img className='max-w-[190px]' src={special5} alt="" />
+              <p className='mt-2 ml-2'>Lorem, ipsum dolor sit</p>
+              <p className='mt-2 ml-2'>price</p>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className='bg-white p-2 border-2 border-green-400'>
+              <img className='max-w-[190px]' src={special6} alt="" />
+              <p className='mt-2 ml-2'>Lorem, ipsum dolor sit</p>
+              <p className='mt-2 ml-2'>price</p>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className='bg-white p-2 border-2 border-green-400'>
+              <img className='max-w-[190px]' src={special7} alt="" />
+              <p className='mt-2 ml-2'>Lorem, ipsum dolor sit</p>
+              <p className='mt-2 ml-2'>price</p>
+          </div>
+        </SwiperSlide>
       </Swiper>
     </>
   )
