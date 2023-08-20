@@ -11,7 +11,7 @@ export const ProductShowCase = ({title}) => {
     }, [])
   
 return (
-    <div>
+    <div className='my-5'>
     <h2 className='px-5 text-3xl'>{title}</h2>
     <div className='px-5 md:mx-0 py-3 grid grid-cols-2 md:grid-cols-4 gap-5 w-full'>
         { products && 
