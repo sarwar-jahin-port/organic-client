@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Category } from '../Category/Category'
+import { Categories } from '../Categories/Categories'
 import { ProductShowCase } from '../ProductShowCase/ProductShowCase'
 import { Banner } from '../../../components/Banner/Banner'
 
@@ -7,7 +7,7 @@ export const Body = () => {
   const[more, setMore] = useState(false);
   return (
     <div>
-        <Category></Category>
+        <Categories></Categories>
         <ProductShowCase title="Vegetable Seeds"></ProductShowCase>
         <Banner></Banner>
         <ProductShowCase title="Flower Seeds"></ProductShowCase>

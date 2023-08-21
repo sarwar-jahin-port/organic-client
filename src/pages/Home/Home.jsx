@@ -1,7 +1,7 @@
 import React from 'react'
 import { TopBanner } from './TopBanner/TopBanner'
 import { SpecialOffer } from './SpecialOffer/SpecialOffer'
-import { Category } from './Category/Category'
+import { Categories } from './Categories/Categories'
 import { SideBanner } from './SideBanner/SideBanner'
 import { ProductShowCase } from './ProductShowCase/ProductShowCase'
 import { Marketing } from './Marketing/Marketing'

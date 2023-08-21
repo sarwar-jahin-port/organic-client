@@ -10,7 +10,7 @@ export const TopRated = () => {
         .then(data => setTopProducts(data))
     }, [])
   return (
-    <div>
+    <div className='hidden md:block'>
         <h3 className='text-2xl font-bold'>Top Rated</h3>
         { topProducts && 
             topProducts.map(product => <TopProduct 
