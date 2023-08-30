@@ -1,6 +1,6 @@
 import React from 'react'
 import { Sort } from './Sort/Sort'
-import { Products } from './Products/Products'
+import Products from '../Category/Products/Products.jsx'
 
 export const Category = () => {
   return (

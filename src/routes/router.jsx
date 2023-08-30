@@ -4,7 +4,6 @@ import {
 import { Main } from "../layouts/Main";
 import { Home } from "../pages/Home/Home";
 import RangeSlider from "../pages/Category/RangeSlider/RangeSlider";
-import { Products } from "../pages/Category/Products/Products";
 import { Category } from "../pages/Category/Category";
 
   const router = createBrowserRouter([

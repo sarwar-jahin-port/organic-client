@@ -7,13 +7,16 @@ import categoryImg5 from '../../../assets/category_icons/pesticides.png';
 import categoryImg6 from '../../../assets/category_icons/tub.png';
 import categoryImg7 from '../../../assets/category_icons/soil.jpg';
 import categoryImg8 from '../../../assets/category_icons/decore.jpg';
+import { Link } from 'react-router-dom';
 
 export const Categories = () => {
   return (
     <div className='px-5 md:mx-0 py-3 grid grid-cols-3 md:grid-cols-4 gap-5 w-full'>
         <div className="category  flex flex-col items-center">
-            <img className='max-w-[120px]' src={categoryImg1} alt="" />
-            <h4 className='text-center mt-1'>Vegetable Seeds</h4>
+            <Link to='/category'>
+                <img className='max-w-[120px]' src={categoryImg1} alt="" />
+                <h4 className='text-center mt-1'>Vegetable Seeds</h4>
+            </Link>
         </div>
         <div className="category  flex flex-col items-center">
             <img className='max-w-[120px]' src={categoryImg2} alt="" />
