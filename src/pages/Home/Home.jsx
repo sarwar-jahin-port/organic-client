@@ -6,10 +6,14 @@ import { SideBanner } from './SideBanner/SideBanner'
 import { ProductShowCase } from './ProductShowCase/ProductShowCase'
 import { Marketing } from './Marketing/Marketing'
 import { Body } from './Body/Body'
+import { Helmet } from 'react-helmet-async'
 
 export const Home = () => {
   return (
     <>
+      <Helmet>
+        <title>Organic Seeds | Home</title>
+      </Helmet>
       <TopBanner></TopBanner>
       <div className="md:grid md:grid-cols-8 md:gap-10 my-10">
         <div className='col-span-2'>

@@ -1,7 +1,11 @@
 import React from 'react'
 import navLogo from '../../assets/nav_logo.png'
+import { Link, NavLink } from 'react-router-dom';
+import Register from '../../pages/Register/Register';
+import Login from '../../pages/Login/Login';
 
 export const Header = () => {
+  const login = false;
   const navSearch = <>
   <div className="flex items-center bg-white rounded-lg shadow-md w-full px-2">
             <input
@@ -34,12 +38,16 @@ export const Header = () => {
     <>
     <div className="navbar bg-base-100">
       <div className="flex-1 gap-10">
-        <img className='max-w-[200px]' src={navLogo} alt="" />
+        <Link to='/'><img className='max-w-[150px]' src={navLogo} alt="" /></Link>
         <div className='hidden md:block w-full'>
           {navSearch}
         </div>
       </div>
         <div className="flex-none ml-10">
+          
+          {/* TODO: toggle between profile pic and login according to login status. */}
+          {login ? 
+          <>
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle">
               <div className="indicator">
@@ -57,7 +65,6 @@ export const Header = () => {
               </div>
             </div>
           </div>
-          {/* TODO: toggle between profile pic and login according to login status. */}
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
@@ -75,6 +82,41 @@ export const Header = () => {
               <li><a>Logout</a></li>
             </ul>
           </div>
+          </>
+          :
+          <>
+            <>
+              {/* The button to open modal */}
+              <label htmlFor="my_modal_6" className="btn btn-sm btn-outline btn-success">Register</label>
+
+              {/* Put this part before </body> tag */}
+              <input type="checkbox" id="my_modal_6" className="modal-toggle" />
+              <div className="modal">
+              <div className="modal-box">
+                  <Register></Register>
+                  <div className="modal-action">
+                  <label htmlFor="my_modal_6" className="btn">Close!</label>
+                  </div>
+              </div>
+              </div>
+            </>
+            <>
+              {/* The button to open modal */}
+              <label htmlFor="my_modal_7" className="btn btn-sm btn-outline btn-success ml-2">Login</label>
+
+              {/* Put this part before </body> tag */}
+              <input type="checkbox" id="my_modal_7" className="modal-toggle" />
+              <div className="modal">
+              <div className="modal-box">
+                  <Login></Login>
+                  <div className="modal-action">
+                  <label htmlFor="my_modal_7" className="btn">Close!</label>
+                  </div>
+              </div>
+              </div>
+            </>
+          </>
+          }
         </div>
     </div>
     <div className='md:hidden w-11/12 mx-auto'>

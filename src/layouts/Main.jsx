@@ -8,7 +8,7 @@ export const Main = () => {
     <>
         <Header></Header>
         <Outlet></Outlet>
-        <Footer></Footer>
+        <Footer className='absolute bottom-0'></Footer>
     </>
   )
 }
