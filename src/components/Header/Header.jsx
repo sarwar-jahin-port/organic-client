@@ -1,6 +1,6 @@
 import React from 'react'
 import navLogo from '../../assets/nav_logo.png'
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Register from '../../pages/Register/Register';
 import Login from '../../pages/Login/Login';
 
@@ -101,7 +101,7 @@ export const Header = () => {
               </div>
             </>
             <>
-              {/* The button to open modal */}
+              {/* The button to open login modal */}
               <label htmlFor="my_modal_7" className="btn btn-sm btn-outline btn-success ml-2">Login</label>
 
               {/* Put this part before </body> tag */}
