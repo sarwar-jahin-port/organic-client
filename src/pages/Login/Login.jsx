@@ -1,13 +1,14 @@
 import React from 'react';
 import navLogo from '../../assets/nav_logo.png';
 import { Helmet } from 'react-helmet-async';
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     console.log("Login form submitted.")
   }
-
+  const notify = () => toast("Login form submitted.");
   return (
     <>
       <Helmet>
@@ -63,6 +64,7 @@ const Login = () => {
           </button>
         </div>
         <button
+          onClick={notify}
           type="submit"
           className="text-white w-full bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
         >

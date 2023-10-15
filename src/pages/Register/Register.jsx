@@ -2,6 +2,9 @@ import React from 'react'
 import { useForm } from "react-hook-form";
 import navLogo from '../../assets/nav_logo.png';
 import { Helmet } from 'react-helmet-async';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { useNavigate  } from 'react-router-dom';
 
 const Register = () => {
     const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
@@ -12,8 +15,32 @@ const Register = () => {
         if(value === password) return true;
         else alert("Password didn't match.")
     };
+    const navigate = useNavigate();
 
-  const onSubmit = data => console.log(data);
+  const onSubmit = async (data) => {
+    console.log(data);
+    try{
+        console.log("try");
+        const res = await axios.post(
+            `/api/v1/auth/register`, 
+            {email, password, confirmPassword}
+        ); 
+        if(res.data.success){
+            console.log("success");
+            toast.success(res.data.message);
+            navigate('/login'); 
+        }
+        else{
+            console.log("api error message");
+            toast.error(res.data.message);
+        }
+    }
+    catch(error){
+        console.log("here", error);
+        toast.error("Something went wrong");
+    }
+  }
+//   console.log(import.meta.env.REACT_APP_API);
   return (
     <>
     <Helmet>

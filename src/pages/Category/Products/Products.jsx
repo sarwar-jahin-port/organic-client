@@ -3,9 +3,9 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'; // Import components 
 import 'react-tabs/style/react-tabs.css'; // Import the default CSS styles
 import { ProductShowCase } from '../../Home/ProductShowCase/ProductShowCase';
 
-const Products = () => {
+const Products = ({index}) => {
   return (
-    <Tabs>
+    <Tabs defaultIndex={index}>
       {/* TabList contains the tab titles */}
       <TabList>
         <Tab>Vegetable Seeds</Tab>
