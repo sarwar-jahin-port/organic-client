@@ -18,17 +18,19 @@ const Register = () => {
     const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    console.log(data);
+    const {email, password} = data;
+    console.log(email, password);
     try{
         console.log("try");
         const res = await axios.post(
-            `/api/v1/auth/register`, 
-            {email, password, confirmPassword}
+            `http://localhost:8080/api/v1/auth/register`, 
+            {email, password}
         ); 
+        console.log(res)
         if(res.data.success){
             console.log("success");
             toast.success(res.data.message);
-            navigate('/login'); 
+            navigate('/'); //TODO: Need to navigate to login page after successful registration.
         }
         else{
             console.log("api error message");
