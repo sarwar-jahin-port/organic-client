@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import navLogo from '../../assets/nav_logo.png'
 import { Link } from 'react-router-dom';
 import Register from '../../pages/Register/Register';
 import Login from '../../pages/Login/Login';
 
 export const Header = () => {
-  const login = false;
+  const openLoginRef = useRef(null);
+  const closeRegisterRef = useRef(null);
+  const [loginStatus, setLoginStatus] = useState(false);
   const navSearch = <>
   <div className="flex items-center bg-white rounded-lg shadow-md w-full px-2">
             <input
@@ -46,7 +48,7 @@ export const Header = () => {
         <div className="flex-none ml-10">
           
           {/* TODO: toggle between profile pic and login according to login status. */}
-          {login ? 
+          {loginStatus ? 
           <>
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle">
@@ -87,33 +89,37 @@ export const Header = () => {
           <>
             <>
               {/* The button to open modal */}
-              <label htmlFor="my_modal_6" className="btn btn-sm btn-outline btn-success">Register</label>
-
-              {/* Put this part before </body> tag */}
-              <input type="checkbox" id="my_modal_6" className="modal-toggle" />
-              <div className="modal">
-              <div className="modal-box">
-                  <Register></Register>
-                  <div className="modal-action">
-                  <label htmlFor="my_modal_6" className="btn">Close!</label>
+              <button className="btn btn-sm btn-outline btn-success" onClick={()=>document.getElementById('my_modal_1').showModal()}>Register</button>
+                <>
+                  <dialog id="my_modal_1" className="modal">
+                  <div className="modal-box">
+                        <Register openLoginRef={openLoginRef} closeRegisterRef={closeRegisterRef}></Register>
+                        <div className="modal-action">
+                          <form method="dialog">
+                            {/* if there is a button in form, it will close the modal */}
+                            <button ref={closeRegisterRef} className="btn">Close</button>
+                          </form>
+                        </div>
                   </div>
-              </div>
-              </div>
+                  </dialog>
+                </>
             </>
             <>
-              {/* The button to open login modal */}
-              <label htmlFor="my_modal_7" className="btn btn-sm btn-outline btn-success ml-2">Login</label>
-
-              {/* Put this part before </body> tag */}
-              <input type="checkbox" id="my_modal_7" className="modal-toggle" />
-              <div className="modal">
-              <div className="modal-box">
-                  <Login></Login>
-                  <div className="modal-action">
-                  <label htmlFor="my_modal_7" className="btn">Close!</label>
+              {/* The button to open modal */}
+              <button className="btn btn-sm btn-outline btn-success" ref={openLoginRef} onClick={()=>document.getElementById('my_modal_2').showModal()}>Login</button>
+                <>
+                  <dialog id="my_modal_2" className="modal">
+                  <div className="modal-box">
+                        <Login setLoginStatus={setLoginStatus}></Login>
+                        <div className="modal-action">
+                          <form method="dialog">
+                            {/* if there is a button in form, it will close the modal */}
+                            <button className="btn">Close</button>
+                          </form>
+                        </div>
                   </div>
-              </div>
-              </div>
+                  </dialog>
+                </>
             </>
           </>
           }

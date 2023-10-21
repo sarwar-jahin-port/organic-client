@@ -4,9 +4,8 @@ import navLogo from '../../assets/nav_logo.png';
 import { Helmet } from 'react-helmet-async';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { useNavigate  } from 'react-router-dom';
 
-const Register = () => {
+const Register = ({openLoginRef, closeRegisterRef}) => {
     const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
     // Custom validation function to check if passwords match
     const validatePasswordMatch = (value) => {
@@ -15,7 +14,7 @@ const Register = () => {
         if(value === password) return true;
         else alert("Password didn't match.")
     };
-    const navigate = useNavigate();
+    
 
   const onSubmit = async (data) => {
     const {email, password} = data;
@@ -28,9 +27,11 @@ const Register = () => {
         ); 
         console.log(res)
         if(res.data.success){
+            reset();
             console.log("success");
             toast.success(res.data.message);
-            navigate('/'); //TODO: Need to navigate to login page after successful registration.
+            openLoginRef.current.click();
+            closeRegisterRef.current.click();
         }
         else{
             console.log("api error message");
