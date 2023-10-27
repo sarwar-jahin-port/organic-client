@@ -7,8 +7,11 @@ import { ProductShowCase } from './ProductShowCase/ProductShowCase'
 import { Marketing } from './Marketing/Marketing'
 import { Body } from './Body/Body'
 import { Helmet } from 'react-helmet-async'
+import { useAuth } from '../../context/auth'
 
 export const Home = () => {
+  const {auth, setAuth} = useAuth();
+  console.log(auth);
   return (
     <>
       <Helmet>

@@ -5,9 +5,11 @@ import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useAuth } from '../../context/auth';
 
 const Login = ({setLoginStatus}) => {
   const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
+  const {auth, setAuth} = useAuth();
   const navigate = useNavigate();
   const onSubmit = async (data) => {
     const {email, password} = data;
@@ -23,6 +25,11 @@ const Login = ({setLoginStatus}) => {
             setLoginStatus(true);
             console.log("success");
             toast.success(res.data.message);
+            setAuth({
+              ...auth,
+              user: res.data.user,
+              token: res.data.token
+            })
             navigate('/');
         }
         else{
