@@ -3,11 +3,13 @@ import navLogo from '../../assets/nav_logo.png'
 import { Link } from 'react-router-dom';
 import Register from '../../pages/Register/Register';
 import Login from '../../pages/Login/Login';
+import { useAuth } from '../../context/auth.jsx';
 
 export const Header = () => {
   const openLoginRef = useRef(null);
   const closeRegisterRef = useRef(null);
-  const [loginStatus, setLoginStatus] = useState(false);
+  const[auth, setAuth] = useAuth();
+  // console.log(auth);
   const navSearch = <>
   <div className="flex items-center bg-white rounded-lg shadow-md w-full px-2">
             <input
@@ -48,7 +50,7 @@ export const Header = () => {
         <div className="flex-none ml-10">
           
           {/* TODO: toggle between profile pic and login according to login status. */}
-          {loginStatus ? 
+          {auth?.user ? 
           <>
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle">
@@ -89,7 +91,7 @@ export const Header = () => {
           <>
             <>
               {/* The button to open modal */}
-              <button className="btn btn-sm btn-outline btn-success" onClick={()=>document.getElementById('my_modal_1').showModal()}>Register</button>
+              <button className="btn btn-sm btn-outline btn-success mr-2" onClick={()=>document.getElementById('my_modal_1').showModal()}>Register</button>
                 <>
                   <dialog id="my_modal_1" className="modal">
                   <div className="modal-box">
@@ -110,7 +112,7 @@ export const Header = () => {
                 <>
                   <dialog id="my_modal_2" className="modal">
                   <div className="modal-box">
-                        <Login setLoginStatus={setLoginStatus}></Login>
+                        <Login></Login>
                         <div className="modal-action">
                           <form method="dialog">
                             {/* if there is a button in form, it will close the modal */}

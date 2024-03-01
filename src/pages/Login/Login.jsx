@@ -7,9 +7,9 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../../context/auth';
 
-const Login = ({setLoginStatus}) => {
+const Login = () => {
   const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
-  const {auth, setAuth} = useAuth();
+  const [auth, setAuth] = useAuth();
   const navigate = useNavigate();
   const onSubmit = async (data) => {
     const {email, password} = data;
@@ -17,12 +17,11 @@ const Login = ({setLoginStatus}) => {
     try{
         console.log("try");
         const res = await axios.post(
-            `http://localhost:8080/api/v1/auth/login`, 
+            `http://localhost:5050/api/v1/auth/login`, 
             {email, password}
         ); 
         console.log(res)
         if(res.data.success){
-            setLoginStatus(true);
             console.log("success");
             toast.success(res.data.message);
             setAuth({
@@ -30,6 +29,7 @@ const Login = ({setLoginStatus}) => {
               user: res.data.user,
               token: res.data.token
             })
+            localStorage.setItem("auth", JSON.stringify(res.data))
             navigate('/');
         }
         else{

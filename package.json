@@ -1,6 +1,6 @@
 {
   "name": "organic-client",
-  "proxy": "http://localhost:8080",
+  "proxy": "http://localhost:5050",
   "private": true,
   "version": "0.0.0",
   "type": "module",

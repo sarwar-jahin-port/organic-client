@@ -1,4 +1,4 @@
-import React, { useState, useContext, createContext } from "react";
+import React, { useState, useContext, createContext, useEffect } from "react";
 
 // Create context
 const authContext = createContext();
@@ -9,9 +9,20 @@ const AuthProvider = ({ children }) => {
     user: null,
     token: "",
   });
-
+  useEffect(()=>{
+    const data = localStorage.getItem("auth");
+    if(data){
+      const parsedData = JSON.parse(data);
+      setAuth(prevAuth => ({
+        ...prevAuth,
+        user: parsedData.user,
+        token: parsedData.token,
+      }))
+    }
+  }, [])
+  // console.log(auth);
   return (
-    <authContext.Provider value={{ auth, setAuth }}>
+    <authContext.Provider value={[auth, setAuth]}>
       {children}
     </authContext.Provider>
   );
