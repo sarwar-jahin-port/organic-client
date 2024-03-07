@@ -5,6 +5,7 @@ import { Main } from "../layouts/Main";
 import { Home } from "../pages/Home/Home";
 import RangeSlider from "../pages/Category/RangeSlider/RangeSlider";
 import { Category } from "../pages/Category/Category";
+import { Private } from "../layouts/Private";
 
   const router = createBrowserRouter([
     {
@@ -18,6 +19,10 @@ import { Category } from "../pages/Category/Category";
         {
           path: "/fertilizer",
           element: <RangeSlider></RangeSlider>
+        },
+        {
+          path: "/profile",
+          element: <Private>Private</Private>
         }
       ]
     },

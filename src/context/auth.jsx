@@ -1,7 +1,7 @@
 import React, { useState, useContext, createContext, useEffect } from "react";
 
 // Create context
-const authContext = createContext();
+const authContext = createContext()
 
 // Make a function which returns authContext.Provider with a value
 const AuthProvider = ({ children }) => {
