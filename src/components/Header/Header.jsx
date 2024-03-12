@@ -11,7 +11,6 @@ export const Header = () => {
   const openLoginRef = useRef(null);
   const closeRegisterRef = useRef(null);
   const [auth, setAuth] = useAuth();
-  let isLogin = false;
   const location = useLocation();
   console.log(location.state);
   const handleLogout = () => {
@@ -24,6 +23,7 @@ export const Header = () => {
     console.log("logout triggered");
     toast.success("Logout Successfully");
   }
+  let isLogin = location?.state?.isLogin;
 
   const navSearch = <>
     <div className="flex items-center bg-white rounded-lg shadow-md w-full px-2">
@@ -91,8 +91,8 @@ export const Header = () => {
                 <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                   <li>
                     <a className="justify-between">
-                      Profile
-                      <span className="badge">New</span>
+                      <Link to="/profile">Profile</Link>
+                      {/* <span className="badge">New</span> */}
                     </a>
                   </li>
                   <li><a>Settings</a></li>
@@ -128,7 +128,7 @@ export const Header = () => {
                   type="checkbox" 
                   id="my_modal_2" 
                   className="modal-toggle"
-                  checked={location?.state?.isLogin ? true : undefined}
+                  checked={isLogin ? true : undefined}
                 />
                 <div className="modal" role="dialog">
                   <div className="modal-box">

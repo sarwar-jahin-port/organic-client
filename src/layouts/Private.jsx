@@ -1,19 +1,33 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useAuth } from '../context/auth';
-import { useDispatch } from 'react-redux';
-import { loginToggle } from '../redux/features/modal/modalSlice';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
+import axios from 'axios';
 
 export const Private = ({children}) => {
     console.log("on private");
-    // const openLoginRef = useRef(null);
     const [auth, setAuth] = useAuth();
-    const dispatch = useDispatch();
-    if(!auth.user){
-      dispatch(loginToggle());
-      return <Navigate to="/" state={{ isLogin: true }}></Navigate>
+    const [ok, setOk] = useState(null);
+    const location = useLocation();
+    
+    useEffect(()=>{
+      const authCheck = async() => {
+        const res = await axios.get("http://localhost:5050/api/v1/auth/user-auth",
+        {
+          headers: {
+            "Authorization": auth?.token,
+          }
+        })
+        console.log(res.data.ok);
+        res.data.ok ? setOk(true) : setOk(false);
+      }
+      if(auth?.token) authCheck();
+      else setOk(false);
+    },[auth?.token])
+    
+    if(ok===null){
+      return <div className='h-screen'>Loading...</div>
     }
-  return (
-    <div>{children}</div>
-  )
+    return ok 
+      ? <div>{children}</div> 
+      : <Navigate to="/" state={{ isLogin: true, location: location.pathname }}></Navigate>
 }

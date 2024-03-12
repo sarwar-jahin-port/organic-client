@@ -3,7 +3,7 @@ import navLogo from '../../assets/nav_logo.png';
 import { Helmet } from 'react-helmet-async';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../../context/auth';
 
@@ -11,6 +11,7 @@ const Login = () => {
   const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
   const [auth, setAuth] = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const onSubmit = async (data) => {
     const {email, password} = data;
     console.log(email, password);
@@ -30,7 +31,7 @@ const Login = () => {
               token: res.data.token
             })
             localStorage.setItem("auth", JSON.stringify(res.data))
-            navigate('/');
+            navigate(location.state || '/');
         }
         else{
             console.log("api error message");
