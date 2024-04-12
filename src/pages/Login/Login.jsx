@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import navLogo from '../../assets/nav_logo.png';
 import { Helmet } from 'react-helmet-async';
 import { toast } from 'react-toastify';
@@ -9,39 +9,62 @@ import { useAuth } from '../../context/auth';
 
 const Login = () => {
   const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
+  const [forgetPass, setForgetPass] = useState(false);
+  console.log(forgetPass);
   const [auth, setAuth] = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const onSubmit = async (data) => {
-    const {email, password} = data;
-    console.log(email, password);
-    try{
-        console.log("try");
-        const res = await axios.post(
-            `http://localhost:5050/api/v1/auth/login`, 
-            {email, password}
-        ); 
-        console.log(res)
+    if (forgetPass) {
+      const {email, answer, password} = data;
+      console.log(email, answer, password);
+      try{
+        const res = await axios.post(`http://localhost:5050/api/v1/auth/forget-password`,
+        {email, answer, password});
+        console.log(res);
         if(res.data.success){
-            console.log("success");
-            toast.success(res.data.message);
-            setAuth({
-              ...auth,
-              user: res.data.user,
-              token: res.data.token
-            })
-            localStorage.setItem("auth", JSON.stringify(res.data))
-            navigate(location.state || '/');
+          console.log("forget pass success.");
+          toast.success(res.data.message);
+          navigate("/");
         }
-        else{
-            console.log("api error message");
-            toast.error(res.data.message);
-        }
-    }
-    catch(error){
+      }
+      catch(error){
         console.log("here", error);
         toast.error("Something went wrong");
+      }
+    } 
+    else {
+      const { email, password } = data;
+      console.log(email, password);
+      try {
+        console.log("login try");
+        const res = await axios.post(
+          `http://localhost:5050/api/v1/auth/login`,
+          { email, password }
+        );
+        console.log(res)
+        if (res.data.success) {
+          console.log("success");
+          toast.success(res.data.message);
+          setAuth({
+            ...auth,
+            user: res.data.user,
+            token: res.data.token
+          })
+          localStorage.setItem("auth", JSON.stringify(res.data))
+          navigate(location.state.location || '/');
+        }
+        else {
+          console.log("api error message");
+          toast.error(res.data.message);
+        }
+      }
+      catch (error) {
+        console.log("here", error);
+        toast.error("Something went wrong");
+      }
     }
+
   }
   const notify = () => toast("Login form submitted.");
   return (
@@ -51,25 +74,33 @@ const Login = () => {
       </Helmet>
       <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit(onSubmit)}>
         <div className='flex justify-center'><img className='max-w-[150px]' src={navLogo} alt="" /></div>
+        {/* Email input div */}
         <div>
-            <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-            <input type="email" {...register("email", { required: true })} name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required=""/>
-            {errors.email && <span className="text-red-600">Email is required</span>}
+          <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
+          <input type="email" {...register("email", { required: true })} name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="" />
+          {errors.email && <span className="text-red-600">Email is required</span>}
+        </div>
+        {/* Question's answer div */}
+        <div className={forgetPass ? "block" : "hidden"}>
+          <label htmlFor="answer" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your answer</label>
+          <input type="text" {...register("answer", { required: true })} name="answer" id="answer" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="What is your full name?" required="" />
+          {errors.answer && <span className="text-red-600">Answer is required</span>}
         </div>
         <div>
-            <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-            <input type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required=""
+          <label htmlFor="password" className="block text-sm font-medium text-gray-900 dark:text-white">{forgetPass ? "New Password" : "Password"}</label>
+          <input type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required=""
             {...register("password", {
-                required: true,
-                minLength: 6,
-                maxLength: 20,
-                pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/
-            })}/>
-            {errors.password?.type === 'required' && <p className="text-red-600">Password is required</p>}
-            {errors.password?.type === 'minLength' && <p className="text-red-600">Password must be 6 characters</p>}
-            {errors.password?.type === 'maxLength' && <p className="text-red-600">Password must be less than 20 characters</p>}
-            {errors.password?.type === 'pattern' && <p className="text-red-600">Password must have one Uppercase one lower case, one number and one special character.</p>}
+              required: true,
+              minLength: 6,
+              maxLength: 20,
+              pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/
+            })} />
+          {errors.password?.type === 'required' && <p className="text-red-600">Password is required</p>}
+          {errors.password?.type === 'minLength' && <p className="text-red-600">Password must be 6 characters</p>}
+          {errors.password?.type === 'maxLength' && <p className="text-red-600">Password must be less than 20 characters</p>}
+          {errors.password?.type === 'pattern' && <p className="text-red-600">Password must have one Uppercase one lower case, one number and one special character.</p>}
         </div>
+        <p className='text-blue-600 text-sm' onClick={() => setForgetPass(!forgetPass)}>Forget Password?</p>
         <div className="flex items-start">
           <div className="flex items-center h-5">
             <input
@@ -95,13 +126,22 @@ const Login = () => {
             </div>
           </button>
         </div>
-        <button
-          onClick={notify}
-          type="submit"
-          className="text-white w-full bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-        >
-          Login
-        </button>
+        {forgetPass ?
+          <button
+            type="submit"
+            className="text-white w-full bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+          >
+            Submit
+          </button>
+          :
+          <button
+            onClick={notify}
+            type="submit"
+            className="text-white w-full bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+          >
+            Login
+          </button>
+        }
         <p className="text-sm font-light text-gray-500 dark:text-gray-400">
           Don't have an account?
           {/* The button to open login modal */}

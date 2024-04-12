@@ -17,21 +17,22 @@ const Register = ({openLoginRef, closeRegisterRef}) => {
     
 
   const onSubmit = async (data) => {
-    const {email, password} = data;
-    console.log(email, password);
+    console.log(data);
+    const {email, answer, password} = data;
+    console.log(email, answer, password);
     try{
         console.log("try");
         const res = await axios.post(
             `http://localhost:5050/api/v1/auth/register`, 
-            {email, password}
+            {email, answer, password}
         ); 
         console.log(res)
         if(res.data.success){
             reset();
             console.log("success");
             toast.success(res.data.message);
-            openLoginRef.current.click();
             closeRegisterRef.current.click();
+            openLoginRef.current.click();
         }
         else{
             console.log("api error message");
@@ -55,6 +56,15 @@ const Register = ({openLoginRef, closeRegisterRef}) => {
             <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
             <input type="email" {...register("email", { required: true })} name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required=""/>
             {errors.email && <span className="text-red-600">Email is required</span>}
+        </div>
+        {/* Security questions answer */}
+        <div>
+          <label htmlFor="answer" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            What is your full name?
+            (<span className='text-sm text-red-400'>This will be used as your security question's answer</span>)
+          </label>
+          <input type="text" {...register("answer", { required: true })} name="answer" id="answer" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="What is your full name?" required="" />
+          {errors.answer && <span className="text-red-600">Security question's answer is required</span>}
         </div>
         <div>
             <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>

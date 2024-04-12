@@ -7,6 +7,8 @@ import RangeSlider from "../pages/Category/RangeSlider/RangeSlider";
 import { Category } from "../pages/Category/Category";
 import { Private } from "../layouts/Private";
 import { Profile } from "../pages/user/Profile";
+import { AdminRoute } from "../layouts/AdminRoute";
+import Admin from "../pages/Admin/Admin";
 
   const router = createBrowserRouter([
     {
@@ -24,6 +26,10 @@ import { Profile } from "../pages/user/Profile";
         {
           path: "/profile",
           element: <Private><Profile/></Private>
+        },
+        {
+          path: "/admin",
+          element: <AdminRoute><Admin/></AdminRoute>
         }
       ]
     },

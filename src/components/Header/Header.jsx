@@ -1,17 +1,18 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import navLogo from '../../assets/nav_logo.png'
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Register from '../../pages/Register/Register';
 import Login from '../../pages/Login/Login';
 import { useAuth } from '../../context/auth.jsx';
 import { toast } from 'react-toastify';
-import { useSelector } from 'react-redux';
 
 export const Header = () => {
   const openLoginRef = useRef(null);
+  const openRegisterRef = useRef(null);
   const closeRegisterRef = useRef(null);
   const [auth, setAuth] = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
   console.log(location.state);
   const handleLogout = () => {
     setAuth({
@@ -22,6 +23,7 @@ export const Header = () => {
     localStorage.removeItem("auth");
     console.log("logout triggered");
     toast.success("Logout Successfully");
+    navigate('/');
   }
   let isLogin = location?.state?.isLogin;
 
@@ -104,20 +106,23 @@ export const Header = () => {
             <>
               <>
                 {/* The button to open modal */}
-                <button className="btn btn-sm btn-outline btn-success mr-2" onClick={() => document.getElementById('my_modal_1').showModal()}>Register</button>
-                <>
-                  <dialog id="my_modal_1" className="modal">
-                    <div className="modal-box">
-                      <Register openLoginRef={openLoginRef} closeRegisterRef={closeRegisterRef}></Register>
-                      <div className="modal-action">
-                        <form method="dialog">
-                          {/* if there is a button in form, it will close the modal */}
-                          <button ref={closeRegisterRef} className="btn">Close</button>
-                        </form>
-                      </div>
+                <label htmlFor="my_modal_1" className="btn btn-sm btn-outline btn-success" ref={openRegisterRef}>Register</label>
+                
+                {/* Put this part before </body> tag */}
+                <input 
+                  type="checkbox" 
+                  id="my_modal_1" 
+                  className="modal-toggle"
+                  checked={isLogin ? false : undefined}
+                />
+                <div className="modal" role="dialog">
+                  <div className="modal-box">
+                    <Register openRegisterRef={openRegisterRef}/>
+                    <div className="modal-action">
+                      <label htmlFor="my_modal_1" className="btn">Close!</label>
                     </div>
-                  </dialog>
-                </>
+                  </div>
+                </div>
               </>
               <>
                 {/* The button to open modal */}
