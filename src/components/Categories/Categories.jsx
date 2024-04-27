@@ -28,23 +28,17 @@ const Categories = () => {
     const handleDeleteCategory = async (categoryId) => {
         console.log(categoryId);
         try {
-            toast.warn("Are you sure?", {
-                autoClose: false,
-                hideProgressBar: true,
-                onClose: async(event) =>{
-                    if(event === "toastClicked"){
-                        const headers = {
-                            'Content-Type': 'application/json',
-                            'Authorization': auth?.token,
-                        }
-                        const {data} = await axios.delete(`http://localhost:5050/api/v1/category/delete-category/${categoryId}`,{headers: headers})
-                        if(data?.success){
-                            toast.success("Category Deleted Successfully.");
-                        }
-                        getAllCategory();
-                    }
+            if(confirm("Are you sure?")){
+                const headers = {
+                    'Content-Type': 'application/json',
+                    'Authorization': auth?.token,
                 }
-            });
+                const {data} = await axios.delete(`http://localhost:5050/api/v1/category/delete-category/${categoryId}`,{headers: headers})
+                if(data?.success){
+                    toast.success("Category Deleted Successfully.");
+                }
+                getAllCategory();
+            }
             
         } catch (error) {
             console.log(error);
@@ -69,7 +63,7 @@ const Categories = () => {
                     {
                         categories.map(c => (
                             <tr className="bg-base-200" key={c._id}>
-                                <th>1</th>
+                                <th>category</th>
                                 <td>{c.name}</td>
                                 <td className='flex justify-center items-center'>
                                     <div>
@@ -92,7 +86,7 @@ const Categories = () => {
                                     </dialog>
                                     </div>
                                     <div>
-                                    <button className='btn' type="submit" onClick={()=>handleDeleteCategory(c._id)}>DELETE</button>
+                                    <button className='btn btn-error' type="submit" onClick={()=>handleDeleteCategory(c._id)}>DELETE</button>
                                     </div>
                                 </td>
                             </tr>

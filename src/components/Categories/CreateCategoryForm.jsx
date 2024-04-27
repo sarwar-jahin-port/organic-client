@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { useAuth } from '../../context/auth';
 import axios from 'axios';
 
-const CreateCategoryForm = ({onSubmitSuccess}) => {
+const CreateCategoryForm = ({onCreateSuccess}) => {
     const [auth, setAuth] = useAuth();
     const { register, handleSubmit, watch, formState: { errors }, } = useForm();
     const onSubmit = async ({ categoryName }) => {
@@ -18,9 +18,9 @@ const CreateCategoryForm = ({onSubmitSuccess}) => {
                 { name: categoryName }, { headers: headers })
             if (data?.success) {
                 toast.success(data.message);
-                onSubmitSuccess();
+                onCreateSuccess();
             }
-            else toast.error(data.message);
+            else {toast.error(data.message);}
         } catch (error) {
             console.log(error);
             toast.error("Something went wrong in category input.");
